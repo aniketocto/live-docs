@@ -17,13 +17,12 @@ const CollabarativeRoom = ({
   users,
   currentUserType,
 }: CollaborativeRoomProps) => {
-  
   const [documentTitle, setDocumentTitle] = useState(roomMetadata.title);
   const [editing, setEditing] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const updateTitleHandler = async (
     e: React.KeyboardEvent<HTMLInputElement>
@@ -113,7 +112,12 @@ const CollabarativeRoom = ({
             </div>
             <div className="flex w-full flex-1 justify-end gap-2 sm:gap-3">
               <ActiveCollaborators />
-              <ShareModal roomId={roomId} collaborators={users} creatorId={roomMetadata.creatorId} currentUserType={currentUserType}  />
+              <ShareModal
+                roomId={roomId}
+                collaborators={users}
+                creatorId={roomMetadata.creatorId}
+                currentUserType={currentUserType}
+              />
 
               <SignedOut>
                 <SignInButton />
