@@ -1,17 +1,18 @@
 "use client";
+
 import { ClientSideSuspense, RoomProvider } from "@liveblocks/react/suspense";
 import { Editor } from "@/components/editor/Editor";
 import Header from "@/components/Header";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
-import React, { useEffect, useRef, useState } from "react";
 import ActiveCollaborators from "./ActiveCollaborators";
+import { useEffect, useRef, useState } from "react";
 import { Input } from "./ui/input";
 import Image from "next/image";
-import { updateDocument } from "@/lib/actions/room.action";
 import Loader from "./Loader";
 import ShareModal from "./ShareModal";
+import { updateDocument } from "@/lib/actions/room.action";
 
-const CollabarativeRoom = ({
+const CollaborativeRoom = ({
   roomId,
   roomMetadata,
   users,
@@ -29,6 +30,7 @@ const CollabarativeRoom = ({
   ) => {
     if (e.key === "Enter") {
       setLoading(true);
+
       try {
         if (documentTitle !== roomMetadata.title) {
           const updatedDocument = await updateDocument(roomId, documentTitle);
@@ -38,8 +40,9 @@ const CollabarativeRoom = ({
           }
         }
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
+
       setLoading(false);
     }
   };
@@ -54,6 +57,7 @@ const CollabarativeRoom = ({
         updateDocument(roomId, documentTitle);
       }
     };
+
     document.addEventListener("mousedown", handleClickOutside);
 
     return () => {
@@ -78,14 +82,14 @@ const CollabarativeRoom = ({
             >
               {editing && !loading ? (
                 <Input
-                  className="document-title-input"
                   type="text"
                   value={documentTitle}
                   ref={inputRef}
-                  placeholder="Enter Title"
+                  placeholder="Enter title"
                   onChange={(e) => setDocumentTitle(e.target.value)}
                   onKeyDown={updateTitleHandler}
                   disabled={!editing}
+                  className="document-title-input"
                 />
               ) : (
                 <>
@@ -105,13 +109,14 @@ const CollabarativeRoom = ({
               )}
 
               {currentUserType !== "editor" && !editing && (
-                <p className="view-only-tag">View Only</p>
+                <p className="view-only-tag">View only</p>
               )}
 
               {loading && <p className="text-sm text-gray-400">saving...</p>}
             </div>
             <div className="flex w-full flex-1 justify-end gap-2 sm:gap-3">
               <ActiveCollaborators />
+
               <ShareModal
                 roomId={roomId}
                 collaborators={users}
@@ -134,4 +139,4 @@ const CollabarativeRoom = ({
   );
 };
 
-export default CollabarativeRoom;
+export default CollaborativeRoom;
