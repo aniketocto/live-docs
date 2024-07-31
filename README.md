@@ -1,5 +1,5 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
+About
+SmartDocs is a Google Docs clone built using Next.js for the user interface, Liveblocks for real-time collaboration features, and styled with Tailwind CSS. The primary goal of this project is to showcase the expertise in creating impactful real-time applications.
 ## Getting Started
 
 First, run the development server:
